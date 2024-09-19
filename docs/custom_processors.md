@@ -1,29 +1,42 @@
 ### [Home (README.md)](../README.md)
 ---
 
-# Custom Processors
+# Custom Processors / Processeurs personnalisés
 
-See the [NiFi Admin Guide](https://nifi.apache.org/docs/nifi-docs/html/administration-guide.html#processor-locations) for details of where to put custom processor NARs. See the "Issues" section further down to see discussion of what has been done.
+Consultez le [Guide d'administration NiFi](https://nifi.apache.org/docs/nifi-docs/html/administration-guide.html#processor-locations) pour plus de détails sur l'emplacement où placer les custom processor NARs. 
 
-Use the docker copy command to put your custom processor NAR files into the automatic library directory, which is */opt/nifi/nifi-current/extensions/*. Make sure to use the *--all* flag to ensure the file is copied to all of the NiFi containers.
+Consultez la section « Issues » plus bas pour voir la discussion sur ce qui a été fait.
+
+Utilisez la commande docker copy pour placer vos fichiers NAR de processeur personnalisés dans le répertoire de bibliothèque automatique, 
+
+qui est */opt/nifi/nifi-current/extensions/*. 
+
+Assurez-vous d'utiliser l'indicateur *--all* pour garantir que le fichier est copié dans tous les conteneurs NiFi.
 
 ```
 docker compose cp --all <path-to-nar-file> nifi:/opt/nifi/nifi-current/extensions/
 ```
 
-Note that for these docker images the NAR must have been compiled under Java 1.8.0. Refresh the NiFi GUI in your browser before trying to use the new processor.
+Notez que pour ces images Docker, le NAR doit avoir été compilé sous Java 1.8.0. 
 
-If you try to load the processor **again**, then you will need to restart the NiFi service, as the class loaders will not load an existing class.
+Actualisez l'interface graphique NiFi dans votre navigateur avant d'essayer d'utiliser le nouveau processeur.
+
+Si vous essayez de charger le processeur **à nouveau**, vous devrez redémarrer le service NiFi, car les chargeurs de classe ne chargeront pas une classe existante.
 
 ```
 docker compose restart nifi
 ```
 
-## Text Approval Processor
+## Text Approval Processor (Processeur d'approbation de texte) :
 
-There is a maven project included which creates a very simple processor which just add the phrase "APPROVED" to the end of any message it sees in the flow.
+Il existe un projet maven inclus qui crée un processeur très simple qui ajoute simplement la phrase "APPROVED" à la fin de tout message qu'il voit dans le flux.
 
-Build the project with ``mvn clean package`` and this produces a NAR file *archiver/target/nifi-hindmasj-processors-&lt;version&gt;.nar* which can then be loaded into the cluster as outlined above.
+Créez le projet avec ``mvn clean package``  
+
+>> cela produit un fichier NAR *archiver/target/nifi-hindmasj-processors-&lt;version&gt;.nar* 
+
+qui peut ensuite être chargé dans le cluster comme indiqué ci-dessus.
+
 
 ---
 ### [Home (README.md)](../README.md)
