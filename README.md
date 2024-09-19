@@ -14,7 +14,7 @@ Utilise l'image docker suivante : [Apache NiFi Image](https://hub.docker.com/r/a
 
 ### https://gitpod.io/workspaces
 
-### [https://hub.docker.com/r/apache/hadoop](https://hub.docker.com/r/apache/nifi)
+### [https://hub.docker.com/r/apache/nifi](https://hub.docker.com/r/apache/nifi)
 
 
 # Sommaire : 
