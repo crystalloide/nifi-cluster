@@ -14,7 +14,7 @@ Utilise l'image docker suivante : [Apache NiFi Image](https://hub.docker.com/r/a
 * [Flow à partir de Template](#Template)
 * [Kafka](#Kafka)
 * [Process de données](#Process)
-* [Stop](#Stop)
+* [Arrêt](#Arrêt)
 * [Exécution de versions spécifiques](#Images)
 * [Utilisation d'un Nifi Registry](#Registry)
 * [Pour aller plus loin](#Subdocs)
@@ -223,7 +223,7 @@ one is the number
 Remarque : cela peut être fait aussi avec le script : 
 ``bin/launch-script.sh consumer``
 
-## <a name="stop"></a>Stop
+## <a name="Arrêt"></a>Arrêt
 
 Il suffit de faire la commande : 
 ``docker compose down``
