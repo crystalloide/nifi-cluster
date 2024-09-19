@@ -11,7 +11,7 @@ Utilise l'image docker suivante : [Apache NiFi Image](https://hub.docker.com/r/a
 
 * [Installation](#Installation)
 * [Lancement](#Lancement)
-* [Chargement et création de Flow à aprtir de Template](#Template)
+* [Chargement et création de Flow à partir de Template](#Template)
 * [Kafka](#Kafka)
 * [Process de données](#Process)
 * [Stop](#Stop)
@@ -56,7 +56,7 @@ Lancement du cluster et de son écosystème :
    
 6. Définir quelques flows et traiter des données.
    
-7. Si NiFi Registry est bien lancé également [Chargement et création de Flow à aprtir de Template](#registry) : 
+7. Si NiFi Registry est bien lancé également [Registry](#Chargement et création de Flow à partir de Template) : 
    
    alors on fait le lien entre le cluster NiFi et NiFi Registry :
    
