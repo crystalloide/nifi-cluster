@@ -101,7 +101,8 @@ docker exec -it <nom_du_container> commande
 
 ``docker compose run kafka bash ``
 
-
+Ce qui donne : 
+```
 [+] Running 1/0
  ⠿ Container zookeeper Running 0.0s
 kafka 09:24:44.07
@@ -119,7 +120,7 @@ connect-distributed.sh        kafka-console-consumer.sh    ...
 I have no name!@d2f135d230e4:/$ exit
 exit
 $
-
+```
 
 #### Exécution d'une commande dans le container :
 
@@ -134,7 +135,8 @@ docker compose run kafka kafka-topics.sh \
   --create --topic my.source.topic \
   --replication-factor 3 --config retention.ms=36000000
 ```
-
+Ce qui donne : 
+```
 [+] Running 1/0
 ⠿ Container zookeeper Running 0.0s
 kafka 09:43:21.17
@@ -145,7 +147,7 @@ kafka 09:43:21.19
 
 WARNING: Due to limitations in metric names, topics with a period ('.') or underscore ('_') could collide. To avoid issues it is best to use either, but not both.
 Created topic my.source.topic.
-
+```
 
 **Description d'un Topic**
 ```
@@ -154,6 +156,8 @@ docker compose run kafka kafka-topics.sh \
   --describe --topic my.source.topic
 ```
 
+Ce qui donne : 
+```
 [+] Running 1/0
 ⠿ Container zookeeper Running 0.0s
 kafka 09:45:45.41
@@ -164,7 +168,7 @@ kafka 09:45:45.42
 
 Topic: my.source.topic  TopicId: ou824ZiQRo-gELS07nh3mg PartitionCount: 1       ReplicationFactor: 3    Configs: segment.bytes=1073741824,retention.ms=36000000
         Topic: my.source.topic  Partition: 0    Leader: 1001    Replicas: 1001,1003,1002        Isr: 1001,1003,1002
-
+```
 
 ### Exécution de Scripts
 
