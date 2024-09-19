@@ -1,20 +1,10 @@
 # Cluster NiFi
 
-Création cluster NiFi dans docker.
+Création cluster NiFi dans docker : Apache Nifi 1.27.0 en date du 19/09/2024
 
 Voir ici [Running a cluster with Apache Nifi and Docker](https://www.nifi.rocks/apache-nifi-docker-compose-cluster/) 
 
 Utilise l'image docker suivante : [Apache NiFi Image](https://hub.docker.com/r/apache/nifi).
-
-# Cluster NiFi : installation lancement et utilisation dans gitpod
-
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/crystalloide/nifi-cluster)
-
-### https://github.com/crystalloide/nifi-cluster
-
-### https://gitpod.io/workspaces
-
-### [https://hub.docker.com/r/apache/nifi](https://hub.docker.com/r/apache/nifi)
 
 
 # Sommaire : 
@@ -73,7 +63,7 @@ sudo chown -R 1000.1000 ../flow_storage
    
    alors on fait le lien entre le cluster NiFi et NiFi Registry :
    
-    ``bin/add-registry.sh``.
+    ``bin/add-registry.sh``
 
 Il faut patienter un peu, le temps que le cluster NiFi soit effectivement opérationnel, 
 
@@ -81,9 +71,11 @@ c'est-à-dire le temps que les noeuds NiFi soient correctement configurés et co
 
 9°) Quelques templates sont disponibles ici : [template](#template) 
 
-ou dans le NiFi Registry [NiFi registry](#registry). 
+  ``/home/user/nifi-cluster/flow_templates``
 
-10°) On peut regarder la production et consommation de messages dans Kafka [Kafka](#process).
+ou dans le NiFi Registry [NiFi registry](#registry) 
+
+10°) On peut regarder la production et consommation de messages dans Kafka [Kafka](#process)
 
 ## <a name="start"></a>Start
 
