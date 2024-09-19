@@ -11,7 +11,7 @@ Utilise l'image docker suivante : [Apache NiFi Image](https://hub.docker.com/r/a
 
 * [Installation](#Installation)
 * [Lancement](#Lancement)
-* [Création ou chargement de Flows](#Template)
+* [Template](#Template)
 * [Kafka](#Kafka)
 * [Process de données](#Process)
 * [Stop](#Stop)
