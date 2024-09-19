@@ -11,7 +11,7 @@ Utilise l'image docker suivante : [Apache NiFi Image](https://hub.docker.com/r/a
 
 * [Installation](#Installation)
 * [Lancement](#Lancement)
-* [Chargement et création de Flow à partir de Template](#Template)
+* [Flow à partir de Template](#Template)
 * [Kafka](#Kafka)
 * [Process de données](#Process)
 * [Stop](#Stop)
@@ -101,7 +101,7 @@ docker exec -it <nom_du_container> commande
 
 ``docker compose run kafka bash ``
 
-```
+
 [+] Running 1/0
  ⠿ Container zookeeper Running 0.0s
 kafka 09:24:44.07
@@ -119,7 +119,7 @@ connect-distributed.sh        kafka-console-consumer.sh    ...
 I have no name!@d2f135d230e4:/$ exit
 exit
 $
-```
+
 
 #### Exécution d'une commande dans le container :
 
@@ -185,9 +185,12 @@ Note : on peut jeter un oeil aux scripts *bin/launch-script.sh* et *bin/create-t
 On peut maintenant travailler avec les données.
 
 1. Démarrer tous les processus du flux en appuyant sur le bouton de démarrage de la boîte de dialogue *Operate*.
-1. Envoyer un ou plusieurs messages dans le topic source. (*ctrl-D* pour terminer)
-1. Observer les messages en cours de traitement dans le flux.
-1. Récupérer le message du topic final. (*ctrl-C* pour terminer)
+   
+2. Envoyer un ou plusieurs messages dans le topic source. (*ctrl-D* pour terminer)
+   
+3. Observer les messages en cours de traitement dans le flux.
+   
+4. Récupérer le message du topic final. (*ctrl-C* pour terminer)
 
 Pour plus de visibilité, on peut exécuter les deux commandes Kafka dans des consoles séparées afin de voir chaque message être traité.
 
@@ -224,7 +227,9 @@ Remarque : cela peut être fait aussi avec le script :
 
 Il suffit de faire la commande : 
 ``docker compose down``
+
 pour arrêter le cluster et détruire les conteneurs. 
+
 Si vous souhaitez conserver les conteneurs, utilisez plutôt : 
 ``docker compose stop``
 
@@ -287,6 +292,8 @@ Une fois le registre configuré, tous les flux créés seront stockés dans le d
 Si on redémarre le cluster, on verra dans le registre que les définitions de flux ont été conservées.
 
 Sur NiFi, on doit toujours créer le lien vers le Registry comme décrit ci-dessus vers "`http://registry:18080/`"
+
+# <a name="Flow à partir de Template"></a>#Template
 
 On peux importer ensuite le flux sur le canevas : 
 
