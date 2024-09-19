@@ -52,15 +52,38 @@ sudo chown -R 1000.1000 ../flow_storage
 
 ## <a name="quickstart"></a>Quickstart
 
-1. Start the cluster ``docker compose up -d``.
-1. Create some topics ``bin/launch-script.sh``.
-1. Open the cluster URL in your browser: [Localhost Port 8080](http://localhost:8080/).
-1. Build some flows, process some data.
-1. If you have already built the [registry](#registry) then link the cluster to it ``bin/add-registry.sh``.
+1. Lancement du cluster et de son écosystème :
+   ``docker compose up -d``
 
-You might need to wait a minute from starting the cluster to using the URL, as it takes some time for all of the NiFi nodes to form a cluster.
+2. Pour suivre le bon démarrage :
+  ``docker ps -a ``
 
-See how to load flows from a [template](#template) or from the [NiFi registry](#registry). Then look at producing and consuming data with [Kafka](#process).
+4. Création de quelques topics dans Kafka :
+   ``bin/launch-script.sh``
+
+5. Accès au proxuy Nginx proxy ici [http://localhost:80](http://localhost:80/)
+    
+6. On peut aussi accéder directement  à l'UI de NiFi - après quelques minutes - sur l'URL via un navigateur Web :
+
+   [http://localhost:8080/nifi/](http://localhost:8080/nifi)
+   
+7. Définir quelques flows et traiter des données.
+   
+8. Si NiFi Registry est bien lancé également [registry](#registry) : 
+   
+   alors on fait le lien entre le cluster NiFi et NiFi Registry :
+   
+    ``bin/add-registry.sh``.
+
+Il faut patienter un peu, le temps que le cluster NiFi soit effectivement opérationnel, 
+
+c'est-à-dire le temps que les noeuds NiFi soient correctement configurés et connectés en cluster
+
+9°) Quelques templates sont disponibles ici : [template](#template) 
+
+ou dans le NiFi Registry [NiFi registry](#registry). 
+
+10°) On peut regarder la production et consommation de messages dans Kafka [Kafka](#process).
 
 ## <a name="start"></a>Start
 
