@@ -35,6 +35,14 @@ Utilise l'image docker suivante : [Apache NiFi Image](https://hub.docker.com/r/a
 
 Before starting you will need to create a new git repo to store the flows in. It is not a good idea to use this cluster repo, the work needs to go in its own repo.
 
+#### Remarque : si on utilise un environnement sur VM, on va d'abord cloner l'environnement :
+```
+git clone https://github.com/crystalloide/nifi-cluster
+
+cd nifi-cluster
+
+```
+Récupération des images : 
 ```
 git init ../flow_storage
 sudo chown -R 1000.1000 ../flow_storage
