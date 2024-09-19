@@ -228,7 +228,7 @@ pour arrêter le cluster et détruire les conteneurs.
 Si vous souhaitez conserver les conteneurs, utilisez plutôt : 
 ``docker compose stop``
 
-# <a name="images"></a>Running Specific Versions Of NiFi
+# <a name="images"></a>Exécution de versions spécifiques de NiFi
 
 The cluster uses a locally built image of NiFi based on the official NiFi image. This gives scope to add extra tools at the build stage instead of waiting until run time. At present this only involves installing the package *redis-tools* which is used in one of the [experiments](docs/experiment-redis_direct.md) where an ExecuteStreamCommand processor runs the tools in a shell to run ad hoc Redis commands.
 
