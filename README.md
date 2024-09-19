@@ -1,8 +1,10 @@
-# My NiFi Cluster
+# Cluster NiFi
 
-Quick project to create a NiFi cluster in Docker.
+Création cluster NiFi dans docker.
 
-Inspired by article [Running a cluster with Apache Nifi and Docker](https://www.nifi.rocks/apache-nifi-docker-compose-cluster/) and shamelessly pinched their compose file, hence the Apache licence. Uses the [Apache NiFi Image](https://hub.docker.com/r/apache/nifi).
+Voir ici [Running a cluster with Apache Nifi and Docker](https://www.nifi.rocks/apache-nifi-docker-compose-cluster/) 
+
+Utilise l'image docker suivante : [Apache NiFi Image](https://hub.docker.com/r/apache/nifi).
 
 * [Installation](#installation)
 * [Operation](#operation)
