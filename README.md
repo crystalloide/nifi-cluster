@@ -239,19 +239,29 @@ Si vous souhaitez conserver les conteneurs, utilisez plutôt :
 
 # <a name="images"></a>Exécution de versions spécifiques de NiFi
 
-The cluster uses a locally built image of NiFi based on the official NiFi image. This gives scope to add extra tools at the build stage instead of waiting until run time. At present this only involves installing the package *redis-tools* which is used in one of the [experiments](docs/experiment-redis_direct.md) where an ExecuteStreamCommand processor runs the tools in a shell to run ad hoc Redis commands.
+Le cluster utilise une image de NiFi construite localement, basée sur l'image officielle de NiFi. 
 
-This image uses the build script in *build-nifi/Dockerfile* to perform this task, and is referred from *docker-compose.yml* so that the build is performed automatically for you.
+Cela permet d'ajouter des outils supplémentaires au stade de la construction au lieu d'attendre le moment de l'exécution. 
 
-You can however rebuild this image manually any time you wish with ``docker compose build``.
+À l'heure actuelle, cela implique uniquement l'installation du package *redis-tools* qui est utilisé dans l'une des [expériences](docs/experiment-redis_direct.md) 
 
-You can also override the "latest" tag within the build file to run a specific version of NiFi. For example:
+où un processeur ExecuteStreamCommand exécute les outils dans un shell pour exécuter des commandes Redis ad hoc.
 
+Cette image utilise le script de construction dans *build-nifi/Dockerfile* pour effectuer cette tâche, 
+
+et est référencée depuis *docker-compose.yml* afin que la construction soit effectuée automatiquement pour vous.
+
+On peut cependant reconstruire cette image manuellement à tout moment avec ``docker compose build``.
+
+On peut également remplacer la balise "latest" dans le fichier de construction pour exécuter une version spécifique de NiFi. 
+
+Par exemple :
 ```
 docker compose build --build-arg NIFI_VERSION=1.16.0
 ```
 
-The image is still tagged as latest so will be used the next time "up" is called.
+L'image est toujours étiquetée comme la plus récente ('latest') et sera donc utilisée la prochaine fois que « up » sera appelé.
+
 
 # <a name="registry"></a>Utilisation d'un Nifi Registry
 
