@@ -66,7 +66,7 @@ Il faut patienter un peu, le temps que le cluster NiFi soit effectivement opéra
 
 c'est-à-dire le temps que les noeuds NiFi soient correctement configurés et connectés en cluster
 
-9°) Quelques templates sont disponibles ici : [template](#Template) 
+9°) Quelques templates sont disponibles ici : [template](#Création ou chargement de Flows) 
 
   ``/home/user/nifi-cluster/flow_templates``
 
