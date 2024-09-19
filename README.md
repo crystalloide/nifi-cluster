@@ -9,21 +9,17 @@ Utilise l'image docker suivante : [Apache NiFi Image](https://hub.docker.com/r/a
 
 # Sommaire : 
 
-* [Installation](#installation)
-* [Operation](#operation)
-* [Quickstart](#quickstart)
-* [Start](#start)
-* [Create Flows](#template)
-* [Manage Kafka](#kafka)
-* [Process Some Data](#process)
-* [Stop](#stop)
-* [Running Specific Versions](#images)
-* [Registry](#registry)
-* [Further Documents](#subdocs)
+* [Installation](#Installation)
+* [Lancement](#Lancement)
+* [Création ou chargement de Flows](#Template)
+* [Kafka](#Kafka)
+* [Process de données](#Process)
+* [Stop](#Stop)
+* [Exécution de versions spécifiques](#Images)
+* [Registry](#Registry)
+* [Pour aller plus loin](#Subdocs)
 
 # <a name="installation"></a>Installation
-
-Before starting you will need to create a new git repo to store the flows in. It is not a good idea to use this cluster repo, the work needs to go in its own repo.
 
 #### Remarque : si on utilise un environnement sur VM, on va d'abord cloner l'environnement :
 ```
@@ -32,34 +28,35 @@ git clone https://github.com/crystalloide/nifi-cluster
 cd nifi-cluster
 
 ```
-Récupération des images : 
+Avant de commencer, on va créer un nouveau dépôt git pour stocker les flows.
+
 ```
 git init ../flow_storage
 sudo chown -R 1000.1000 ../flow_storage
 ```
 
-# <a name="operation"></a>Operation
+## <a name="Lancement"></a>Lancement
 
-## <a name="quickstart"></a>Quickstart
-
-1. Lancement du cluster et de son écosystème :
+Lancement du cluster et de son écosystème :
+   
+1. Récupération des images : 
    ``docker compose up -d``
 
 2. Pour suivre le bon démarrage :
   ``docker ps -a ``
 
-4. Création de quelques topics dans Kafka :
+3. Création de quelques topics dans Kafka :
    ``bin/launch-script.sh``
 
-5. Accès au proxuy Nginx proxy ici [http://localhost:80](http://localhost:80/)
+4. Accès au proxy Nginx proxy ici [http://localhost:80](http://localhost:80/)
     
-6. On peut aussi accéder directement  à l'UI de NiFi - après quelques minutes - sur l'URL via un navigateur Web :
+5. On peut aussi accéder directement  à l'UI de NiFi - après quelques minutes - sur l'URL via un navigateur Web :
 
    [http://localhost:8080/nifi/](http://localhost:8080/nifi)
    
-7. Définir quelques flows et traiter des données.
+6. Définir quelques flows et traiter des données.
    
-8. Si NiFi Registry est bien lancé également [registry](#registry) : 
+7. Si NiFi Registry est bien lancé également [registry](#registry) : 
    
    alors on fait le lien entre le cluster NiFi et NiFi Registry :
    
@@ -69,48 +66,42 @@ Il faut patienter un peu, le temps que le cluster NiFi soit effectivement opéra
 
 c'est-à-dire le temps que les noeuds NiFi soient correctement configurés et connectés en cluster
 
-9°) Quelques templates sont disponibles ici : [template](#template) 
+9°) Quelques templates sont disponibles ici : [template](#Template) 
 
   ``/home/user/nifi-cluster/flow_templates``
 
-ou dans le NiFi Registry [NiFi registry](#registry) 
+ou dans le NiFi Registry [NiFi registry](#Registry) 
 
-10°) On peut regarder la production et consommation de messages dans Kafka [Kafka](#process)
+10°) On peut regarder la production et consommation de messages dans Kafka [Kafka](#Kafka)
 
-## <a name="start"></a>Start
 
-To start the cluster up and connect to the NiFi desktop.
+11°) Gestion de Kafka : 
 
-1. Start the cluster with ``docker compose up -d``. The cluster will start 3 NiFi nodes to hold a proper election for master.
-1. Connect to the Nginx proxy at [Localhost Port 80](http://localhost:80/).
-1. The server present a simple menu that will take you to the NiFi cluster or to the register.
-1. Select "NiFi Cluster". The nodes take a while to start running so at first you will get the bad proxy error. Keep trying.
-1. Afterwards, you can go directly to http://localhost:8080/nifi/.
+## <a name="kafka"></a>Kafka
 
-## <a name="template"></a>Create Flows
+### Exécution de commandes
 
-Once connected to the GUI you can create your flows. To get you started there is a simple one stored under the templates directory. Load it from the NiFi desktop.
+Vous pouvez exécuter des commandes Kafka ponctuelles en utilisant la commande :
 
-&nbsp; &nbsp; *right click* -> Upload Template -> *browse* -> "Simple_Kafka_Flow.xml" -> Upload
+``docker compose run <service> <...>`` 
 
-Then add the template onto the desktop from the design bar.
+qui lance un conteneur distinct en utilisant la même image mais en exécutant la commande. 
 
-&nbsp; &nbsp; *drag template icon* -> Choose Template: "Simple_Kafka_Flow" -> Add
+Cela peut cependant être assez lent car vous devez lancer le conteneur pour chaque commande.
 
-## <a name="kafka"></a>Manage Kafka
+Après un certain temps, ces conteneurs s'accumulent, ce que vous pouvez voir avec la commande :
+``docker compose ps -a``
 
-### One Off Commands
+Si cela devient un problème, nettoyez-les avec la commande : 
+``docker container prune``
 
-You can run one-off Kafka commands by using the ``docker compose run <service> <...>`` command, which spins up a separate container using the same image but running the command. This however can be quite slow as you need to spin up the container for each single command.
+12°) Exécution de commandes spécifique dans un container : 
 
-After a while these containers accumulate, which you can see with ``docker compose ps -a``. If this becomes a problem then tidy them up with ``docker container prune``.
+docker exec -it <nom_du_container> commande
 
-#### Start a Client Console
-
-You can run ad hoc commands on a client container.
+``docker compose run kafka bash ``
 
 ```
-$ docker compose run kafka bash
 [+] Running 1/0
  ⠿ Container zookeeper Running 0.0s
 kafka 09:24:44.07
@@ -130,17 +121,19 @@ exit
 $
 ```
 
-#### Run a Client Command
+#### Exécution d'une commande dans le container :
 
-You can run specific scripts or commands that are already in container. Notice you can use the service alias "kafka" as shorthand for the first available kafka broker.
+Vous pouvez exécuter des scripts ou des commandes spécifiques qui se trouvent déjà dans le conteneur.
 
-**Create a Topic**
+On peut utiliser l'alias de service « kafka » comme raccourci pour joindre le premier broker kafka disponible.
 
+**Création d'un Topic**
 ```
-$ docker compose run kafka kafka-topics.sh \
+docker compose run kafka kafka-topics.sh \
   --bootstrap-server kafka:9092 \
   --create --topic my.source.topic \
   --replication-factor 3 --config retention.ms=36000000
+```
 
 [+] Running 1/0
 ⠿ Container zookeeper Running 0.0s
@@ -152,14 +145,14 @@ kafka 09:43:21.19
 
 WARNING: Due to limitations in metric names, topics with a period ('.') or underscore ('_') could collide. To avoid issues it is best to use either, but not both.
 Created topic my.source.topic.
-```
 
-**Describe a Topic**
 
+**Description d'un Topic**
 ```
-$ docker compose run kafka kafka-topics.sh \
+docker compose run kafka kafka-topics.sh \
   --bootstrap-server kafka:9092 \
   --describe --topic my.source.topic
+```
 
 [+] Running 1/0
 ⠿ Container zookeeper Running 0.0s
@@ -171,57 +164,69 @@ kafka 09:45:45.42
 
 Topic: my.source.topic  TopicId: ou824ZiQRo-gELS07nh3mg PartitionCount: 1       ReplicationFactor: 3    Configs: segment.bytes=1073741824,retention.ms=36000000
         Topic: my.source.topic  Partition: 0    Leader: 1001    Replicas: 1001,1003,1002        Isr: 1001,1003,1002
-```
 
-### Running Scripts
 
-You can use the run command to also mount a local directory and then run any scripts that might be in there. Note that the paths must be absolute.
+### Exécution de Scripts
+
+On peut également utiliser la commande run pour monter un répertoire local, 
+puis exécuter tous les scripts qui pourraient s'y trouver. 
+Les chemins doivent être donnés en "absolus" (arborescence complète dpeuis /)
 
 ```
 docker compose run --volume <path-to-mount>:<mount-point> kafka <mount-point>/<script-name>
 ```
 
-See the scripts *bin/launch-script.sh* and *bin/create-topics.sh* to see an example of how this is done.
+Note : on peut jeter un oeil aux scripts *bin/launch-script.sh* et *bin/create-topics.sh* pour voir la manière dont cela est fait.
 
-## <a name="process"></a>Process Some Data
+## <a name="process de données"></a>Process
 
-By now you should have loaded the flow into NiFi and set up the topics on Kafka. Now is the time to move data.
+À présent, vous devriez avoir chargé le flow à partir du template dans NiFi et configuré les topics dans Kafka. 
 
-1. Start all of the processes in the flow by pressing the start button on the *Operate* dialogue.
-1. Send a simple message to the source topic. (*ctrl-D* to end)
-1. Observe the messages being processed in the flow.
-1. Retrieve the message from the sink topic. (*ctrl-C* to end)
+On peut maintenant travailler avec les données.
 
-For a bit more fun you can run both Kafka commands in separate consoles and see each message flowing.
+1. Démarrer tous les processus du flux en appuyant sur le bouton de démarrage de la boîte de dialogue *Operate*.
+1. Envoyer un ou plusieurs messages dans le topic source. (*ctrl-D* pour terminer)
+1. Observer les messages en cours de traitement dans le flux.
+1. Récupérer le message du topic final. (*ctrl-C* pour terminer)
 
-### Send Some Data
+Pour plus de visibilité, on peut exécuter les deux commandes Kafka dans des consoles séparées afin de voir chaque message être traité.
+
+### Production de quelques messages dans le topic source :
 
 ```
-$ docker compose run kafka kafka-console-producer.sh \
+docker compose run kafka kafka-console-producer.sh \
  --bootstrap-server kafka:9092 --topic my.source.topic
+```
 >hello world
 >now is the time
 >one is the number
 > ^D
+
+
+Remarque : cela peut être fait aussi avec le script : 
+``bin/launch-script.sh producer``.
+
+### Affichage des messages produits : 
+
 ```
-
-As this is so useful you can launch it with ``bin/launch-script.sh producer``.
-
-### Receive Some Data
-
-```
-$ docker compose run kafka kafka-console-consumer.sh \
+docker compose run kafka kafka-console-consumer.sh \
  --bootstrap-server kafka:9092 --topic my.sink.topic --offset earliest --partition 0
+```
 hello world
 now is the time
 one is the number
 ^C
-```
-As this is so useful you can launch it with ``bin/launch-script.sh consumer``.
+
+Remarque : cela peut être fait aussi avec le script : 
+``bin/launch-script.sh consumer``
 
 ## <a name="stop"></a>Stop
 
-Simply ``docker compose down`` to stop the cluster and destroy the containers. If you want to preserve the containers then use ``docker compose stop``.
+Il suffit de faire la commande : 
+``docker compose down``
+pour arrêter le cluster et détruire les conteneurs. 
+Si vous souhaitez conserver les conteneurs, utilisez plutôt : 
+``docker compose stop``
 
 # <a name="images"></a>Running Specific Versions Of NiFi
 
@@ -239,44 +244,65 @@ docker compose build --build-arg NIFI_VERSION=1.16.0
 
 The image is still tagged as latest so will be used the next time "up" is called.
 
-# <a name="registry"></a>Using the Registry
+# <a name="registry"></a>Utilisation d'un Nifi Registry
 
-A NiFi registry service has been added to make persistence of flows easier than having to use the template method.
+Un service de NiFi Registry a été ajouté pour faciliter la persistance des flux plutôt que d'avoir à utiliser les Templates 
 
-Connect to the registry GUI with http://localhost:18080/nifi-registry.
+(A noter que les Templates seront déppréciés d'ailleurs en NiFi 2.0.)
 
-## First Time
+On se connectez-vous à l'interface graphique de NiFi Registry ici :
+
+http://localhost:18080/nifi-registry
+
+
+## 1ère fois : 
+
+La première fois qu'on utilise un Nifi Registry, on doit configurer un bucket et éventuellement y placer un flux. 
+
+Il s'agit d'un processus manuel.
+
+1. Dans le registre, cliquer sur la clé puis créez un nouveau bucket.
+   
+2. Dans NiFi, utiliser le menu "Controller Settings" -> "Registry Clients"
+ 
+3. Ajouter un nouveau client avec l'URL "`http://registry:18080/`"
+   
+4. Sur le bureau, créer un processor group
+ 
+5. À l'intérieur du groupe, faire glisser le template de flux test.
+   
+6. En arrière-plan, faire un clic droit et sélectionnez "Version" ->  "Start version control"
+
+7. Dans la boîte de dialogue, donner un nom au flux et cliquer sur Enregistrer.
+
+Vous verrez que le bucket "test" et le snapshot du flux ont été créés dans le dépôt git.
 
 The first time you use the registry you need to set up the bucket, and optionally put a flow into it. This is a manual process.
 
-1. In registry click the wrench then create a new bucket.
-1. In NiFi use the menu "Controller Settings" -> "Registry Clients".
-1. Add a new client with URL "`http://registry:18080/`".
-1. On the desktop create a processor group.
-1. Inside the group, drag in the template for the test flow.
-1. On the background, right click and select "Version" -> "Start version control".
-1. In the dialogue give the flow a name and click save.
 
-You will see that the test bucket and the flow snapshot have been created in the git repo.
+## Ensuite :
 
-## Afterwards
+Une fois le registre configuré, tous les flux créés seront stockés dans le dépôt git local, ce qui vous assure la persistance. 
 
-Once the registry has been set up, any flows created will get stored in the local git repo, giving you persistence. If you restart the cluster you will see in the registry that your flow definitions have been preserved.
+Si on redémarre le cluster, on verra dans le registre que les définitions de flux ont été conservées.
 
-On NiFi you still need to create the registry client link as described above to "`http://registry:18080/`". Then import the flow onto the desktop.
+Sur NiFi, on doit toujours créer le lien vers le Registry comme décrit ci-dessus vers "`http://registry:18080/`"
 
-1. Drag a process group from the design bar onto the desktop.
-1. Click "Import from Registry".
-1. Select the bucket, flow and version you want.
-1. Click "Import".
+On peux importer ensuite le flux sur le canevas : 
 
-## Automatic
+1. Faire glisser un Process Group de la barre de menu vers le canevas
+1. Cliquer sur "Import from Registry"
+1. Sélectionner le bucket, le flow et la version souhaitée
+1. Cliquer sur « Import »
 
-This has been automated with the script ``bin/add-registry.sh``. You still need to run this command manually of course.
 
-# <a name="subdocs"></a>More
+## Ajout automatique du NiFi Registry dans le cluster NiFi : 
 
-To simplify the documentation, further sections have been moved to separate documents under the "docs" directory.
+A lancer manuellement : 
+``bin/add-registry.sh`` 
+
+
+# <a name="Subdocs"></a>Pour aller plus loin :
 
 * [Custom Processors](docs/custom_processors.md)
 * [Issues](docs/issues.md)
