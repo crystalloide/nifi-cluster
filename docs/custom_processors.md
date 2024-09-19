@@ -33,7 +33,7 @@ Il existe un projet maven inclus qui crée un processeur très simple qui ajoute
 
 Créez le projet avec ``mvn clean package``  
 
->> cela produit un fichier NAR *archiver/target/nifi-hindmasj-processors-&lt;version&gt;.nar* 
+cela produit un fichier NAR *archiver/target/nifi-hindmasj-processors-&lt;version&gt;.nar* 
 
 qui peut ensuite être chargé dans le cluster comme indiqué ci-dessus.
 
