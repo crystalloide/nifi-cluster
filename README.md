@@ -16,7 +16,7 @@ Utilise l'image docker suivante : [Apache NiFi Image](https://hub.docker.com/r/a
 * [Process de données](#Process)
 * [Stop](#Stop)
 * [Exécution de versions spécifiques](#Images)
-* [Registry](#Registry)
+* [Utilisation d'un Nifi Registry](#Registry)
 * [Pour aller plus loin](#Subdocs)
 
 # <a name="installation"></a>Installation
