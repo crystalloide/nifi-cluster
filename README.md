@@ -1,10 +1,10 @@
 # Cluster NiFi
 
-Création cluster NiFi dans docker : Apache Nifi 1.27.0 en date du 19/09/2024
+Création cluster NiFi dans docker : version Apache Nifi 1.27.0 (en date du 19/09/2024)
 
 Voir ici [Running a cluster with Apache Nifi and Docker](https://www.nifi.rocks/apache-nifi-docker-compose-cluster/) 
 
-Utilise l'image docker suivante : [Apache NiFi Image](https://hub.docker.com/r/apache/nifi).
+Utilise l'image docker suivante : [Apache NiFi Image](https://hub.docker.com/r/apache/nifi)
 
 
 # Sommaire : 
